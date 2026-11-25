@@ -1,0 +1,35 @@
+.iLogin { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr auto; background: #fff; }
+
+.iIzquierda { display: flex; flex-direction: column; padding: 56px 56px 0; background: #f6f3ee; overflow: hidden; }
+.iMarca { display: flex; align-items: center; gap: 14px; margin-bottom: 56px; }
+.iMarca img { border-radius: 8px; }
+.iMarca span { font-family: var(--fuente-titulos); font-weight: 700; font-size: 44px; color: var(--verde-oscuro); letter-spacing: -0.01em; }
+.iIzquierda h2 { font-size: 26px; font-weight: 700; color: var(--verde-oscuro); }
+.iIzquierda p { max-width: 420px; margin: 14px 0 0; font-size: 17px; line-height: 1.55; color: var(--gris-medio); }
+.iArte { display: block; width: calc(100% + 112px); max-width: none; margin: auto -56px 0; }
+
+.iDerecha { display: grid; place-items: center; padding: 40px 24px; }
+.iFormulario { width: 100%; max-width: 440px; }
+.iFormulario h1 { font-size: 34px; font-weight: 700; text-align: center; }
+.iSub { margin: 6px 0 24px; text-align: center; color: var(--gris-medio); }
+
+.iOpciones { display: flex; justify-content: space-between; align-items: center; margin: 18px 0 20px; font-size: 14px; }
+.iRecordar { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+.iRecordar input { width: 18px; height: 18px; accent-color: var(--verde-oscuro); }
+.iOlvido { padding: 0; border: 0; background: none; color: var(--naranja-oscuro); font: inherit; cursor: pointer; }
+.iOlvido:hover { text-decoration: underline; }
+
+.iAncho { width: 100%; }
+.iO { display: flex; align-items: center; gap: 12px; margin: 20px 0; color: var(--gris-medio); font-size: 13px; }
+.iO::before, .iO::after { content: ""; flex: 1; height: 1px; background: var(--gris-borde); }
+
+.iRegistro { margin: 24px 0 0; text-align: center; font-size: 15px; }
+.iRegistro a { color: var(--naranja-oscuro); font-weight: 700; text-decoration: none; }
+.iRegistro a:hover { text-decoration: underline; }
+
+.iPieLogin { grid-column: 1 / -1; padding: 16px; border-top: 1px solid #eceef1; text-align: center; font-size: 14px; color: var(--gris-medio); background: #fff; }
+
+@media (max-width: 900px) {
+  .iLogin { grid-template-columns: 1fr; }
+  .iIzquierda { display: none; }
+}

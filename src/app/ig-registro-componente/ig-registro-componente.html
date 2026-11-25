@@ -1,0 +1,61 @@
+<div class="iFondo">
+  <form class="iTarjeta" [formGroup]="iForm" (ngSubmit)="iEnviar()" novalidate>
+    <img src="logo-indilingua.png" alt="INDILINGUA" width="96" height="96">
+    <h1>Crea tu cuenta</h1>
+    <p class="iSub">Regístrate como estudiante para empezar</p>
+
+    @if (iError()) {
+      <div class="iAlerta" role="alert"><app-ig-icono nombre="alerta" [tamano]="18" /> {{ iError() }}</div>
+    }
+
+    <div class="iDos">
+      <div>
+        <label class="iEtiquetaCampo" for="nombres">Nombres</label>
+        <div class="iCampo" [class.iInvalido]="iInvalido('nombres')">
+          <app-ig-icono nombre="usuario" [tamano]="18" />
+          <input id="nombres" type="text" formControlName="nombres" placeholder="Ej. María" autocomplete="given-name">
+        </div>
+        @if (iMensaje('nombres')) { <p class="iMsgCampo">{{ iMensaje('nombres') }}</p> }
+      </div>
+      <div>
+        <label class="iEtiquetaCampo" for="apellidos">Apellidos</label>
+        <div class="iCampo" [class.iInvalido]="iInvalido('apellidos')">
+          <app-ig-icono nombre="usuario" [tamano]="18" />
+          <input id="apellidos" type="text" formControlName="apellidos" placeholder="Ej. Gómez" autocomplete="family-name">
+        </div>
+        @if (iMensaje('apellidos')) { <p class="iMsgCampo">{{ iMensaje('apellidos') }}</p> }
+      </div>
+    </div>
+
+    <label class="iEtiquetaCampo" for="correo">Correo electrónico</label>
+    <div class="iCampo" [class.iInvalido]="iInvalido('correo')">
+      <app-ig-icono nombre="correo" [tamano]="18" />
+      <input id="correo" type="email" formControlName="correo" placeholder="tucorreo@indilingua.com" autocomplete="email">
+    </div>
+    @if (iMensaje('correo')) { <p class="iMsgCampo">{{ iMensaje('correo') }}</p> }
+
+    <label class="iEtiquetaCampo" for="password">Contraseña</label>
+    <div class="iCampo" [class.iInvalido]="iInvalido('password')">
+      <app-ig-icono nombre="candado" [tamano]="18" />
+      <input id="password" [type]="iVer() ? 'text' : 'password'" formControlName="password" placeholder="Mínimo 8 caracteres" autocomplete="new-password">
+      <button type="button" (click)="iVer.set(!iVer())" [attr.aria-label]="iVer() ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+        <app-ig-icono [nombre]="iVer() ? 'ojoNo' : 'ojo'" [tamano]="18" />
+      </button>
+    </div>
+    @if (iMensaje('password')) { <p class="iMsgCampo">{{ iMensaje('password') }}</p> }
+
+    <label class="iEtiquetaCampo" for="confirmar">Confirmar contraseña</label>
+    <div class="iCampo" [class.iInvalido]="iInvalido('confirmar')">
+      <app-ig-icono nombre="candado" [tamano]="18" />
+      <input id="confirmar" [type]="iVer() ? 'text' : 'password'" formControlName="confirmar" placeholder="Repite tu contraseña" autocomplete="new-password">
+    </div>
+    @if (iMensaje('confirmar')) { <p class="iMsgCampo">{{ iMensaje('confirmar') }}</p> }
+
+    <button type="submit" class="iBtnPrimario iAncho" [disabled]="iCargando()">
+      {{ iCargando() ? 'Creando cuenta…' : 'Registrarme' }}
+    </button>
+
+    <p class="iPie">Ya tengo cuenta: <a routerLink="/grupo4/login">Iniciar sesión</a></p>
+    <p class="iPie"><a routerLink="/grupo4/login">← Volver al inicio</a></p>
+  </form>
+</div>

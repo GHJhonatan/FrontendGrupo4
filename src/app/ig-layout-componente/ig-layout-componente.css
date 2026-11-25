@@ -1,0 +1,45 @@
+.iPagina { min-height: 100vh; padding: 16px; box-sizing: border-box; display: flex; }
+.iPanel { flex: 1; max-width: 1440px; margin: 0 auto; display: flex; flex-direction: column; background: #fff; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden; }
+
+.iBarra { display: flex; align-items: center; gap: 24px; height: 72px; padding: 0 32px; background: #fff; border-bottom: 1px solid #eceef1; font-family: var(--fuente-texto); }
+.iLogo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.iLogo img { border-radius: 6px; display: block; }
+.iLogo span { font-family: var(--fuente-titulos); font-weight: 700; font-size: 26px; color: var(--verde-oscuro); letter-spacing: -0.01em; }
+
+.iNav { display: flex; flex: 1; justify-content: center; gap: 40px; }
+.iEnlace { position: relative; padding: 26px 0; font-family: var(--fuente-texto); font-size: 16px; color: var(--gris-oscuro); text-decoration: none; }
+.iEnlace:hover { color: var(--verde-principal); }
+.iEnlace.iActivo { font-weight: 700; }
+.iEnlace.iActivo::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--verde-principal); border-radius: 2px; }
+
+.iUsuario { display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 12px 0 6px; background: #fff; border: 1px solid var(--gris-borde); border-radius: 8px; color: var(--gris-oscuro); font-family: var(--fuente-texto); font-size: 16px; cursor: pointer; }
+.iUsuario:hover { background: var(--gris-claro); }
+.iAvatar { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--verde-claro); color: var(--verde-principal); }
+.iAvatar.iMaestro { background: #fff1e6; color: var(--naranja-marca); }
+
+.iMenuInfo { display: flex; flex-direction: column; gap: 2px; padding: 12px 16px 12px; margin-bottom: 4px; border-bottom: 1px solid #eceef1; font-family: var(--fuente-texto); }
+.iMenuInfo strong { font-size: 15px; }
+.iMenuInfo span { font-size: 13px; color: var(--gris-medio); }
+.iMenuInfo em { margin-top: 4px; font-style: normal; font-size: 12px; font-weight: 700; color: var(--verde-principal); }
+.iItem { display: inline-flex; align-items: center; gap: 12px; font-family: var(--fuente-texto); font-size: 15px; }
+
+.iCarga { height: 3px; background: linear-gradient(90deg, transparent, var(--verde-principal), transparent); background-size: 40% 100%; background-repeat: no-repeat; animation: iCorrer 1s linear infinite; }
+@keyframes iCorrer { from { background-position: -40% 0; } to { background-position: 140% 0; } }
+
+.iAviso { display: flex; align-items: center; gap: 10px; margin: 16px 32px 0; padding: 12px 16px; border-radius: 8px; background: #fde8e8; color: var(--rojo); font-size: 15px; }
+.iAviso span { flex: 1; }
+.iAviso button { padding: 6px 14px; border: 1px solid var(--rojo); border-radius: 8px; background: #fff; color: var(--rojo); font-weight: 700; cursor: pointer; }
+
+.iPie { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; margin-top: auto; padding: 20px 32px; border-top: 1px solid #eceef1; color: var(--gris-medio); font-size: 14px; }
+.iPieEnlaces { display: flex; gap: 24px; }
+
+@media (max-width: 800px) {
+  .iBarra { height: auto; flex-wrap: wrap; gap: 4px 12px; padding: 10px 16px 0; }
+  .iLogo { flex: 1; }
+  .iLogo span { font-size: 22px; }
+  .iRol { display: none; }
+  .iNav { order: 3; flex-basis: 100%; justify-content: flex-start; gap: 22px; overflow-x: auto; }
+  .iEnlace { padding: 12px 0; white-space: nowrap; font-size: 15px; }
+  .iAviso { margin: 12px 16px 0; }
+  .iPie { padding: 16px; }
+}
