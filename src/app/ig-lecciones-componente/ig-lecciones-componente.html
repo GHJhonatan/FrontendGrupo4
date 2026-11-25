@@ -1,0 +1,70 @@
+<div class="iPaginaInterna">
+  <app-ig-filtros modo="lecciones" />
+
+  <section class="iContenido" aria-labelledby="tituloLecciones">
+    <header class="iCabecera">
+      <div>
+        <h1 id="tituloLecciones">Lecciones</h1>
+        <p>Explora y aprende con nuestras lecciones en video.</p>
+      </div>
+      <label class="iBuscar">
+        <app-ig-icono nombre="buscar" [tamano]="18" />
+        <input type="search" placeholder="Buscar lecciones..." [value]="iBusqueda()" (input)="iEscribir($event)" aria-label="Buscar lecciones">
+      </label>
+    </header>
+
+    <div class="iGrupo">
+      <h2>{{ iNivelNombre() }} <span class="iEtq">{{ iIdiomaNombre() }}</span></h2>
+      <p>{{ iDatos.iLeccionesSel().length }} {{ iDatos.iLeccionesSel().length === 1 ? 'lección' : 'lecciones' }} en este nivel.</p>
+    </div>
+
+    @for (l of iFiltradas(); track l.id; let n = $index) {
+      @let estado = iDatos.iEstadoDe(l);
+      <article class="iFila" [class.iBloqueada]="estado === 'bloqueada'">
+        <div class="iMini">
+          @if (iMiniatura(l); as url) {
+            <img [src]="url" alt="" loading="lazy">
+          } @else {
+            <span class="iMiniIcono"><app-ig-icono [nombre]="iIconoTipo(l)" [tamano]="34" /></span>
+          }
+          <span class="iPlay" aria-hidden="true"><app-ig-icono nombre="video" [tamano]="16" /></span>
+        </div>
+
+        <span class="iNum" [class.iNumActivo]="estado !== 'bloqueada'">{{ l.orden ?? n + 1 }}</span>
+
+        <div class="iInfo">
+          <h3>{{ l.titulo }}</h3>
+          <p>{{ l.descripcion }}</p>
+          <div class="iMeta">
+            <app-ig-icono [nombre]="iIconoTipo(l)" [tamano]="16" /> {{ iTipoTexto(l) }}
+            @if (l.duracionMin) { <span>•</span> {{ l.duracionMin }} min }
+          </div>
+        </div>
+
+        <div class="iAccion">
+          <button type="button" class="iVer" [disabled]="estado === 'bloqueada'" (click)="iAbrir(l)">Ver lección</button>
+          @switch (estado) {
+            @case ('completada') {
+              <span class="iEstado iOk">Completada <span class="iCirculo"><app-ig-icono nombre="check" [tamano]="12" /></span></span>
+            }
+            @case ('en_progreso') {
+              <span class="iEstado iProg">En progreso <span class="iAnilloMini" [style.--p]="iDatos.iPorcentajeDe(l)"></span></span>
+            }
+            @case ('disponible') {
+              <span class="iEstado">Sin iniciar</span>
+            }
+            @default {
+              <span class="iEstado">Bloqueada <app-ig-icono nombre="candado" [tamano]="16" /></span>
+            }
+          }
+        </div>
+      </article>
+    } @empty {
+      <div class="iVacio">
+        <app-ig-icono nombre="carpeta" [tamano]="32" />
+        <strong>No hay lecciones para mostrar</strong>
+        <span>{{ iBusqueda() ? 'Prueba con otra búsqueda.' : 'Este nivel aún no tiene lecciones registradas.' }}</span>
+      </div>
+    }
+  </section>
+</div>

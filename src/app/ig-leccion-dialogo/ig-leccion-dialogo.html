@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>{{ iLeccion.titulo }}</h2>
+
+<mat-dialog-content>
+  @if (iLeccion.descripcion) { <p class="iDescripcion">{{ iLeccion.descripcion }}</p> }
+
+  @if (!iUrl) {
+    <div class="iVacio">
+      <app-ig-icono nombre="carpeta" [tamano]="32" />
+      <strong>Esta lección aún no tiene contenido cargado</strong>
+    </div>
+  } @else if (iYoutube) {
+    <div class="iVideo">
+      <iframe [src]="iYoutube" title="Video de la lección" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  } @else if (iTipo === 'audio') {
+    <audio controls [src]="iUrl"></audio>
+  } @else if (iTipo === 'video') {
+    <video controls [src]="iUrl"></video>
+  } @else {
+    <a class="iExterno" [href]="iUrl" target="_blank" rel="noopener noreferrer">
+      Abrir contenido <app-ig-icono nombre="flecha" [tamano]="16" />
+    </a>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" mat-dialog-close>Cerrar</button>
+  @if (iEstado() !== 'completada') {
+    <button mat-flat-button type="button" class="iVerde" [disabled]="iGuardando()" (click)="iCompletar()">
+      {{ iGuardando() ? 'Guardando…' : 'Marcar como completada' }}
+    </button>
+  } @else {
+    <span class="iHecha"><app-ig-icono nombre="check" [tamano]="16" /> Lección completada</span>
+  }
+</mat-dialog-actions>
