@@ -4,6 +4,7 @@
 
 .iCaja { padding: 14px; border: 1px solid #e5e7eb; border-radius: 12px; }
 .iCaja h2 { margin-bottom: 10px; font-size: 15px; font-weight: 600; }
+.iOpcion { display: flex; align-items: center; gap: 10px; width: 100%; margin-bottom: 8px; padding: 10px 12px; border: 1px solid var(--gris-borde); border-radius: 8px; background: #fff; color: var(--gris-oscuro); font: 700 14px var(--fuente-texto); text-align: left; cursor: pointer; }
 .iOpcion:last-child { margin-bottom: 0; }
 .iOpcion:hover { background: var(--gris-claro); }
 .iOpcion.iSel { border-color: var(--sel-borde); background: var(--sel-fondo); color: var(--sel-texto); }
