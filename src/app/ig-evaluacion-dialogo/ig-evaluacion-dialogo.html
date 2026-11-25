@@ -1,0 +1,69 @@
+<h2 mat-dialog-title>{{ iEval.titulo }}</h2>
+
+<mat-dialog-content>
+  @if (iCargando()) {
+    <p class="iNota">Cargando preguntas…</p>
+  } @else if (iError()) {
+    <div class="iAlerta" role="alert"><app-ig-icono nombre="alerta" [tamano]="18" /> {{ iError() }}</div>
+  } @else if (iVistas().length === 0) {
+    <div class="iVacio">
+      <app-ig-icono nombre="carpeta" [tamano]="32" />
+      <strong>Esta evaluación aún no tiene preguntas</strong>
+    </div>
+  } @else if (iResultado(); as res) {
+    <div class="iResultado">
+      <div class="iNotaGrande" [class.iAprobo]="res.aprobada">{{ res.puntaje }}%</div>
+      <h3>{{ res.aprobada ? '¡Aprobaste!' : 'No aprobaste esta vez' }}</h3>
+      <p>{{ res.correctas }} de {{ res.total }} respuestas correctas · nota mínima {{ iNotaMinima }}%</p>
+    </div>
+    <ol class="iRevision">
+      @for (d of res.detalle; track $index) {
+        <li [class.iAcierto]="d.acierto">
+          <strong>{{ d.enunciado }}</strong>
+          <span>Tu respuesta: {{ d.tuya || '—' }}</span>
+          @if (!d.acierto) { <span class="iCorrecta">Respuesta correcta: {{ d.correcta }}</span> }
+        </li>
+      }
+    </ol>
+  } @else {
+    <p class="iMetaEval">{{ iVistas().length }} preguntas · {{ iEval.duracionMin ?? 0 }} min sugeridos</p>
+    @for (v of iVistas(); track v.pregunta.id; let n = $index) {
+      <fieldset class="iPregunta">
+        <legend>{{ n + 1 }}. {{ v.pregunta.enunciado }}</legend>
+        @switch (v.modo) {
+          @case ('opciones') {
+            @for (o of v.opciones; track o.id) {
+              <label class="iOpcion" [class.iElegida]="iRespuestas()[v.pregunta.id] === '' + o.id">
+                <input type="radio" [name]="'p' + v.pregunta.id" [checked]="iRespuestas()[v.pregunta.id] === '' + o.id" (change)="iResponder(v.pregunta.id, '' + o.id)">
+                {{ o.textoOpcion }}
+              </label>
+            }
+          }
+          @case ('vf') {
+            <label class="iOpcion" [class.iElegida]="iRespuestas()[v.pregunta.id] === 'verdadero'">
+              <input type="radio" [name]="'p' + v.pregunta.id" [checked]="iRespuestas()[v.pregunta.id] === 'verdadero'" (change)="iResponder(v.pregunta.id, 'verdadero')"> Verdadero
+            </label>
+            <label class="iOpcion" [class.iElegida]="iRespuestas()[v.pregunta.id] === 'falso'">
+              <input type="radio" [name]="'p' + v.pregunta.id" [checked]="iRespuestas()[v.pregunta.id] === 'falso'" (change)="iResponder(v.pregunta.id, 'falso')"> Falso
+            </label>
+          }
+          @default {
+            <input class="iTexto" type="text" placeholder="Escribe tu respuesta" [value]="iRespuestas()[v.pregunta.id] ?? ''" (input)="iEscribir(v.pregunta.id, $event)">
+          }
+        }
+      </fieldset>
+    }
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  @if (iResultado()) {
+    <button mat-button type="button" (click)="iReintentar()">Reintentar</button>
+    <button mat-flat-button type="button" class="iVerde" mat-dialog-close>Cerrar</button>
+  } @else {
+    <button mat-button type="button" mat-dialog-close>Cancelar</button>
+    <button mat-flat-button type="button" class="iVerde" [disabled]="iGuardando() || iVistas().length === 0 || iRespondidas() < iVistas().length" (click)="iEnviar()">
+      {{ iGuardando() ? 'Guardando…' : 'Terminar evaluación' }}
+    </button>
+  }
+</mat-dialog-actions>

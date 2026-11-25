@@ -1,0 +1,27 @@
+.iPestanas { display: flex; gap: 8px; margin-bottom: 24px; }
+.iPestanas button { padding: 8px 20px; border: 0; border-radius: 8px; background: none; color: var(--gris-oscuro); font: 600 15px var(--fuente-texto); cursor: pointer; }
+.iPestanas button:hover { background: var(--gris-claro); }
+.iPestanas .iPestanaSel { background: var(--verde-oscuro); color: #fff; }
+
+.iGrupo { margin-bottom: 16px; }
+.iGrupo h2 { font-size: 22px; font-weight: 700; }
+.iGrupo p { margin: 4px 0 0; font-size: 14px; color: var(--gris-medio); }
+
+.iIconoEval { flex: none; display: grid; place-items: center; width: 80px; height: 64px; border-radius: 12px; background: #fff1e6; color: var(--naranja-marca); }
+.iInfo { flex: 1; min-width: 0; }
+.iInfo h3 { font-size: 19px; font-weight: 600; }
+.iInfo p { margin: 4px 0 8px; font-size: 14px; color: var(--gris-medio); }
+.iMeta { display: flex; flex-wrap: wrap; gap: 18px; font-size: 13px; color: var(--gris-medio); }
+.iMeta span { display: inline-flex; align-items: center; gap: 6px; }
+
+.iAccion { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; min-width: 140px; }
+.iPuntaje { padding: 4px 16px; border-radius: 8px; background: var(--gris-claro); font-weight: 700; font-size: 14px; }
+.iBoton { padding: 8px 22px; border: 1px solid var(--verde-oscuro); border-radius: 8px; background: #fff; color: var(--verde-oscuro); font: 700 14px var(--fuente-texto); cursor: pointer; }
+.iBoton:hover { background: var(--verde-claro); }
+
+.iNotaInfo { display: flex; align-items: center; gap: 10px; margin: 8px 0 0; padding: 14px 18px; border-radius: 10px; background: var(--verde-claro); color: var(--gris-oscuro); font-size: 14px; }
+
+@media (max-width: 760px) {
+  .iFila { flex-wrap: wrap; }
+  .iAccion { flex-direction: row; align-items: center; width: 100%; }
+}
