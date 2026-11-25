@@ -1,13 +1,13 @@
 import { Injectable, computed, effect, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, forkJoin, map, of, switchMap, tap, throwError } from 'rxjs';
-import { IG_API_URL, IG_IDIOMAS_PERMITIDOS, IG_NIVELES_PERMITIDOS } from './ig-config';
+import { IG_API_URL } from './ig-config';
 import { IgAuthService } from './ig-auth';
 import {
   IgEstadoEvaluacion, IgEstadoLeccion, IgEvaluacion, IgIdioma, IgLeccion, IgNivel,
   IgOpcion, IgPregunta, IgProgreso, IgResultado
 } from './ig-modelos';
-import { igAhora, igNormalizar } from './ig-utiles';
+import { igAhora } from './ig-utiles';
 
 @Injectable({ providedIn: 'root' })
 export class IgDatosService {
@@ -62,11 +62,10 @@ export class IgDatosService {
         });
       })
     ).subscribe((r) => {
-      const d = this.iDepurar(r.idiomas, r.niveles, r.lecciones, r.evaluaciones);
-      this.iIdiomas.set(d.idiomas);
-      this.iNiveles.set(d.niveles);
-      this.iLecciones.set(d.lecciones);
-      this.iEvaluaciones.set(d.evaluaciones);
+      this.iIdiomas.set(r.idiomas);
+      this.iNiveles.set([...r.niveles].sort((a, b) => a.orden - b.orden));
+      this.iLecciones.set(r.lecciones);
+      this.iEvaluaciones.set(r.evaluaciones);
       this.iProgresos.set(r.progresos);
       this.iResultados.set(r.resultados);
       this.iElegirPorDefecto();
@@ -78,46 +77,6 @@ export class IgDatosService {
   iReintentar(): void {
     this.iCargando.set(false);
     this.iCargar();
-  }
-
-  // Deja solo los idiomas y niveles del proyecto y junta los que estén repetidos
-  private iDepurar(idiomas: IgIdioma[], niveles: IgNivel[], lecciones: IgLeccion[], evaluaciones: IgEvaluacion[]) {
-    const idiomaCanon = new Map<number, IgIdioma>();
-    const porIdioma = new Map<string, IgIdioma>();
-    for (const i of [...idiomas].sort((a, b) => a.id - b.id)) {
-      const clave = igNormalizar(i.nombre);
-      if (!IG_IDIOMAS_PERMITIDOS.includes(clave)) continue;
-      const canonico = porIdioma.get(clave) ?? i;
-      porIdioma.set(clave, canonico);
-      idiomaCanon.set(i.id, canonico);
-    }
-
-    const nivelCanon = new Map<number, IgNivel>();
-    const porNivel = new Map<string, IgNivel>();
-    for (const n of [...niveles].sort((a, b) => a.id - b.id)) {
-      const clave = igNormalizar(n.nombre).replace(/^nivel\s+/, '');
-      const etiqueta = IG_NIVELES_PERMITIDOS[clave];
-      if (!etiqueta) continue;
-      const canonico = porNivel.get(clave) ?? { ...n, nombre: etiqueta };
-      porNivel.set(clave, canonico);
-      nivelCanon.set(n.id, canonico);
-    }
-
-    const mapear = (l: IgLeccion): IgLeccion | null => {
-      const idioma = idiomaCanon.get(l.idioma?.id ?? -1);
-      const nivel = nivelCanon.get(l.nivel?.id ?? -1);
-      return idioma && nivel ? { ...l, idioma, nivel } : null;
-    };
-
-    return {
-      idiomas: [...porIdioma.values()],
-      niveles: [...porNivel.values()].sort((a, b) => a.orden - b.orden),
-      lecciones: lecciones.map(mapear).filter((l): l is IgLeccion => l !== null),
-      evaluaciones: evaluaciones.flatMap((e) => {
-        const leccion = e.leccion ? mapear(e.leccion) : null;
-        return leccion ? [{ ...e, leccion }] : [];
-      })
-    };
   }
 
   private iElegirPorDefecto(): void {

@@ -1,0 +1,68 @@
+<div class="iPaginaInterna">
+  <app-ig-filtros modo="progreso" />
+
+  <section class="iContenido" aria-labelledby="tituloProg">
+    <header class="iCabecera">
+      <div>
+        <h1 id="tituloProg">Mi progreso</h1>
+        <p>Tu avance en {{ iIdiomaNombre() }} - {{ iNivelNombre() }}</p>
+      </div>
+    </header>
+
+    @let r = iDatos.iResumen();
+    <div class="iResumen">
+      <div class="iGeneral">
+        <span class="iTituloMini">Progreso general</span>
+        <div class="iAnillo">
+          <svg viewBox="0 0 100 100" width="104" height="104" aria-hidden="true">
+            <circle cx="50" cy="50" r="42" fill="none" stroke="#e5e7eb" stroke-width="9"/>
+            <circle cx="50" cy="50" r="42" fill="none" stroke="var(--verde-principal)" stroke-width="9" stroke-linecap="round"
+                    [attr.stroke-dasharray]="iDash()" transform="rotate(-90 50 50)"/>
+          </svg>
+          <strong>{{ r.pctLecciones }}%</strong>
+        </div>
+        <span class="iTituloMini">Completado</span>
+      </div>
+
+      <div class="iDato">
+        <span class="iDatoIcono iVerdeIcono"><app-ig-icono nombre="libro" [tamano]="30" /></span>
+        <p><strong>{{ r.completadas }}</strong> / {{ r.totalLecciones }}</p>
+        <span>Lecciones completadas</span>
+      </div>
+      <div class="iDato">
+        <span class="iDatoIcono iNaranjaIcono"><app-ig-icono nombre="evaluacion" [tamano]="30" /></span>
+        <p><strong>{{ r.aprobadas }}</strong> / {{ r.totalEvaluaciones }}</p>
+        <span>Evaluaciones aprobadas</span>
+      </div>
+      <div class="iDato">
+        <span class="iDatoIcono iAzulIcono"><app-ig-icono nombre="reloj" [tamano]="30" /></span>
+        <p><strong>{{ iTiempo() }}</strong></p>
+        <span>Tiempo de estudio</span>
+      </div>
+    </div>
+
+    <div class="iLista">
+      <h2>Progreso por lecciones</h2>
+      @for (l of iDatos.iLeccionesSel(); track l.id; let n = $index) {
+        @let estado = iDatos.iEstadoDe(l);
+        @let pct = iDatos.iPorcentajeDe(l);
+        <div class="iFilaProg">
+          <span class="iNum">{{ l.orden ?? n + 1 }}</span>
+          <span class="iTituloLeccion">{{ l.titulo }}</span>
+          <div class="iBarra" role="progressbar" [attr.aria-valuenow]="pct" aria-valuemin="0" aria-valuemax="100" [attr.aria-label]="'Progreso de ' + l.titulo">
+            <span [style.width.%]="pct"></span>
+          </div>
+          <span class="iPct">{{ pct }}%</span>
+          <span class="iChip" [class]="'iChip ' + iChip(estado).clase">{{ iChip(estado).texto }}</span>
+        </div>
+      } @empty {
+        <div class="iVacio">
+          <app-ig-icono nombre="carpeta" [tamano]="32" />
+          <strong>No hay lecciones en este nivel</strong>
+        </div>
+      }
+    </div>
+
+    <p class="iMotivo"><app-ig-icono nombre="estrella" [tamano]="20" /> {{ iMensaje() }}</p>
+  </section>
+</div>

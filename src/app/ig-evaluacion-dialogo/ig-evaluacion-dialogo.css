@@ -1,0 +1,24 @@
+.iNota, .iMetaEval { margin: 0 0 12px; color: var(--gris-medio); }
+.iAlerta { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 8px; background: #fde8e8; color: var(--rojo); }
+.iVacio { display: grid; justify-items: center; gap: 8px; padding: 40px 16px; border: 2px dashed var(--gris-borde); border-radius: 12px; background: var(--gris-claro); color: var(--gris-medio); text-align: center; }
+
+.iPregunta { margin: 0 0 18px; padding: 0; border: 0; }
+.iPregunta legend { margin-bottom: 10px; padding: 0; font-weight: 700; font-size: 16px; }
+.iOpcion { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; padding: 12px 14px; border: 1px solid var(--gris-borde); border-radius: 8px; cursor: pointer; font-size: 15px; }
+.iOpcion:hover { background: var(--gris-claro); }
+.iOpcion input { accent-color: var(--verde-oscuro); width: 18px; height: 18px; }
+.iElegida { border-color: var(--verde-principal); background: var(--verde-claro); }
+.iTexto { width: 100%; box-sizing: border-box; padding: 12px 14px; border: 1px solid var(--gris-borde); border-radius: 8px; font: inherit; }
+.iTexto:focus { outline: 0; border-color: var(--verde-principal); box-shadow: 0 0 0 3px rgba(46, 112, 50, 0.15); }
+
+.iResultado { text-align: center; margin-bottom: 20px; }
+.iNotaGrande { display: inline-grid; place-items: center; width: 112px; height: 112px; border-radius: 50%; border: 8px solid #f3b58a; font-family: var(--fuente-titulos); font-size: 30px; font-weight: 700; }
+.iNotaGrande.iAprobo { border-color: var(--verde-principal); color: var(--verde-oscuro); }
+.iResultado h3 { margin: 12px 0 4px; font-size: 22px; }
+.iResultado p { margin: 0; color: var(--gris-medio); }
+
+.iRevision { margin: 0; padding: 0; list-style: none; }
+.iRevision li { display: grid; gap: 2px; margin-bottom: 8px; padding: 10px 14px; border-left: 4px solid var(--rojo); border-radius: 6px; background: #fdf3f3; font-size: 14px; }
+.iRevision li.iAcierto { border-color: var(--verde-principal); background: var(--verde-claro); }
+.iCorrecta { color: var(--verde-oscuro); font-weight: 700; }
+.iVerde { --mat-button-filled-container-color: var(--verde-oscuro); --mat-button-filled-label-text-color: #fff; }

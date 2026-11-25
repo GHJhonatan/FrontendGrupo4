@@ -1,0 +1,71 @@
+<div class="iPaginaInterna">
+  <app-ig-filtros modo="evaluaciones" />
+
+  <section class="iContenido" aria-labelledby="tituloEval">
+    <header class="iCabecera">
+      <div>
+        <h1 id="tituloEval">Evaluaciones</h1>
+        <p>Pon a prueba lo que has aprendido con nuestras evaluaciones interactivas.</p>
+      </div>
+      <label class="iBuscar">
+        <app-ig-icono nombre="buscar" [tamano]="18" />
+        <input type="search" placeholder="Buscar evaluaciones..." [value]="iBusqueda()" (input)="iEscribir($event)" aria-label="Buscar evaluaciones">
+      </label>
+    </header>
+
+    <div class="iPestanas" role="tablist">
+      @for (p of iPestanas; track p.id) {
+        <button type="button" role="tab" [attr.aria-selected]="iPestana() === p.id" [class.iPestanaSel]="iPestana() === p.id" (click)="iPestana.set(p.id)">{{ p.texto }}</button>
+      }
+    </div>
+
+    <div class="iGrupo">
+      <h2>{{ iNivelNombre() }} - {{ iIdiomaNombre() }} <span class="iEtq">{{ iNivelNombre() }}</span></h2>
+      <p>Evaluaciones para el nivel {{ iNivelNombre().toLowerCase() }}.</p>
+    </div>
+
+    @for (e of iLista(); track e.id) {
+      @let estado = iDatos.iEstadoEval(e);
+      @let r = iDatos.iResultadoDe(e);
+      <article class="iFila">
+        <span class="iIconoEval"><app-ig-icono nombre="evaluacion" [tamano]="30" /></span>
+
+        <div class="iInfo">
+          <h3>{{ e.titulo }}</h3>
+          <p>Lección {{ e.leccion?.orden }}</p>
+          <div class="iMeta">
+            <span><app-ig-icono nombre="texto" [tamano]="16" /> {{ e.cantidadPreguntas ?? 0 }} preguntas</span>
+            <span><app-ig-icono nombre="reloj" [tamano]="16" /> {{ e.duracionMin ?? 0 }} min</span>
+          </div>
+        </div>
+
+        <div class="iAccion">
+          @switch (estado) {
+            @case ('completada') {
+              <span class="iChip iChipOk">Completada ✓</span>
+              <span class="iPuntaje">{{ r?.puntajePorcentaje }}% ({{ r?.respuestasCorrectas }}/{{ r?.totalPreguntas }})</span>
+              <button type="button" class="iBoton" (click)="iAbrir(e)">Repetir</button>
+            }
+            @case ('en_progreso') {
+              <span class="iChip iChipNaranja">En progreso</span>
+              <button type="button" class="iBoton" (click)="iAbrir(e)">Continuar</button>
+            }
+            @default {
+              <span class="iChip">Pendiente</span>
+              <button type="button" class="iBoton" (click)="iAbrir(e)">Comenzar</button>
+            }
+          }
+        </div>
+        <app-ig-icono nombre="derecha" [tamano]="20" />
+      </article>
+    } @empty {
+      <div class="iVacio">
+        <app-ig-icono nombre="carpeta" [tamano]="32" />
+        <strong>No hay evaluaciones para mostrar</strong>
+        <span>Cuando haya evaluaciones en este nivel aparecerán aquí.</span>
+      </div>
+    }
+
+    <p class="iNotaInfo"><app-ig-icono nombre="info" [tamano]="18" /> Completa las evaluaciones para reforzar tu aprendizaje y avanzar de nivel.</p>
+  </section>
+</div>
