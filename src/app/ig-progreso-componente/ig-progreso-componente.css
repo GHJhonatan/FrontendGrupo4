@@ -1,0 +1,34 @@
+.iResumen { display: grid; grid-template-columns: 1.1fr 1fr 1fr 1fr; padding: 24px 8px; margin-bottom: 24px; border: 1px solid #e5e7eb; border-radius: 16px; background: #fff; }
+.iGeneral, .iDato { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0 16px; text-align: center; }
+.iDato { border-left: 1px solid #eceef1; justify-content: center; font-size: 14px; color: var(--gris-medio); }
+.iDato p { margin: 0; font-size: 18px; color: var(--gris-oscuro); }
+.iDato p strong { font-family: var(--fuente-titulos); font-size: 28px; }
+.iTituloMini { font-size: 14px; font-weight: 600; }
+.iAnillo { position: relative; display: grid; place-items: center; }
+.iAnillo strong { position: absolute; font-family: var(--fuente-titulos); font-size: 22px; }
+.iDatoIcono { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 12px; }
+.iVerdeIcono { background: var(--verde-claro); color: var(--verde-principal); }
+.iNaranjaIcono { background: #fff1e6; color: var(--naranja-marca); }
+.iAzulIcono { background: #e6f0ff; color: #1d4ed8; }
+
+.iLista { padding: 20px 24px; border: 1px solid #e5e7eb; border-radius: 16px; }
+.iLista h2 { margin-bottom: 8px; font-size: 18px; font-weight: 600; }
+.iFilaProg { display: flex; align-items: center; gap: 16px; padding: 12px 0; border-top: 1px solid #f0f1f3; }
+.iNum { flex: none; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--verde-claro); color: var(--verde-oscuro); font-weight: 700; font-size: 14px; }
+.iTituloLeccion { flex: 0 0 24%; min-width: 0; font-size: 15px; }
+.iBarra { flex: 1; height: 8px; border-radius: 999px; background: #e5e7eb; overflow: hidden; }
+.iBarra span { display: block; height: 100%; border-radius: 999px; background: var(--verde-principal); }
+.iPct { flex: none; width: 44px; text-align: right; font-size: 14px; }
+.iFilaProg .iChip { flex: none; min-width: 96px; text-align: center; }
+
+.iMotivo { display: flex; align-items: center; gap: 12px; margin: 20px 0 0; padding: 14px 18px; border-radius: 10px; background: var(--verde-claro); color: var(--gris-oscuro); }
+
+@media (max-width: 900px) {
+  .iResumen { grid-template-columns: 1fr 1fr; gap: 20px 0; }
+  .iDato:nth-child(3) { border-left: 0; }
+}
+@media (max-width: 640px) {
+  .iFilaProg { flex-wrap: wrap; }
+  .iTituloLeccion { flex: 1 1 60%; }
+  .iBarra { flex-basis: 100%; order: 5; }
+}
