@@ -1,0 +1,61 @@
+<div class="iLogin">
+  <section class="iIzquierda">
+    <div class="iMarca">
+      <img src="logo-indilingua.png" alt="" width="56" height="56">
+      <span>INDILINGUA</span>
+    </div>
+    <h2>Aprende. Conecta. Preserva.</h2>
+    <p>Plataforma de enseñanza de Quechua y Aymara con lecciones en video, evaluaciones interactivas y más.</p>
+    <img class="iArte" src="login-arte.png" alt="">
+  </section>
+
+  <section class="iDerecha">
+    <form class="iFormulario" [formGroup]="iForm" (ngSubmit)="iEnviar()" novalidate>
+      <h1>Iniciar sesión</h1>
+      <p class="iSub">Bienvenido de vuelta a INDILINGUA</p>
+
+      @if (iInfo && !iError()) {
+        <div class="iAlerta iInfoAlerta" role="status"><app-ig-icono nombre="info" [tamano]="18" /> {{ iInfo }}</div>
+      }
+      @if (iError()) {
+        <div class="iAlerta" role="alert"><app-ig-icono nombre="alerta" [tamano]="18" /> {{ iError() }}</div>
+      }
+
+      <label class="iEtiquetaCampo" for="correo">Correo electrónico</label>
+      <div class="iCampo" [class.iInvalido]="iInvalido('correo')">
+        <app-ig-icono nombre="correo" [tamano]="18" />
+        <input id="correo" type="email" formControlName="correo" placeholder="ejemplo@correo.com" autocomplete="username">
+      </div>
+      @if (iMensaje('correo')) { <p class="iMsgCampo">{{ iMensaje('correo') }}</p> }
+
+      <label class="iEtiquetaCampo" for="password">Contraseña</label>
+      <div class="iCampo" [class.iInvalido]="iInvalido('password')">
+        <app-ig-icono nombre="candado" [tamano]="18" />
+        <input id="password" [type]="iVer() ? 'text' : 'password'" formControlName="password" placeholder="Ingresa tu contraseña" autocomplete="current-password">
+        <button type="button" (click)="iVer.set(!iVer())" [attr.aria-label]="iVer() ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+          <app-ig-icono [nombre]="iVer() ? 'ojoNo' : 'ojo'" [tamano]="18" />
+        </button>
+      </div>
+      @if (iMensaje('password')) { <p class="iMsgCampo">{{ iMensaje('password') }}</p> }
+
+      <div class="iOpciones">
+        <label class="iRecordar"><input type="checkbox" formControlName="recordar"> Recordarme</label>
+        <button type="button" class="iOlvido" (click)="iOlvido()">¿Olvidaste tu contraseña?</button>
+      </div>
+
+      <button type="submit" class="iBtnPrimario iAncho" [disabled]="iCargando()">
+        {{ iCargando() ? 'Ingresando…' : 'Iniciar sesión' }}
+      </button>
+
+      <div class="iO"><span>o</span></div>
+
+      <button type="button" class="iBtnBorde iAncho" (click)="iInvitado()">
+        <app-ig-icono nombre="maestro" [tamano]="20" /> Continuar como invitado
+      </button>
+
+      <p class="iRegistro">¿No tienes cuenta? <a routerLink="/grupo4/registro">Regístrate aquí</a></p>
+    </form>
+  </section>
+
+  <footer class="iPieLogin">© 2026 INDILINGUA. Todos los derechos reservados.</footer>
+</div>

@@ -1,0 +1,60 @@
+<div class="iPagina">
+  <div class="iPanel">
+    <mat-toolbar class="iBarra">
+      <a class="iLogo" routerLink="/grupo4/inicio" aria-label="INDILINGUA, ir al inicio">
+        <img src="logo-indilingua.png" alt="" width="40" height="40">
+        <span>INDILINGUA</span>
+      </a>
+
+      <nav class="iNav" aria-label="Principal">
+        <a routerLink="/grupo4/inicio" routerLinkActive="iActivo" class="iEnlace">Inicio</a>
+        <a routerLink="/grupo4/lecciones" routerLinkActive="iActivo" class="iEnlace">Lecciones</a>
+        <a routerLink="/grupo4/evaluaciones" routerLinkActive="iActivo" class="iEnlace">Evaluaciones</a>
+        <a routerLink="/grupo4/progreso" routerLinkActive="iActivo" class="iEnlace">Mi progreso</a>
+      </nav>
+
+      <button type="button" class="iUsuario" [matMenuTriggerFor]="iMenu" aria-label="Menú de la cuenta">
+        <span class="iAvatar" [class.iMaestro]="iAuth.iIconoUsuario() === 'maestro'">
+          <app-ig-icono [nombre]="iAuth.iIconoUsuario()" [tamano]="20" />
+        </span>
+        <span class="iRol">{{ iAuth.iEtiquetaRol() }}</span>
+        <app-ig-icono nombre="chevron" [tamano]="16" />
+      </button>
+
+      <mat-menu #iMenu="matMenu" xPosition="before">
+        <div class="iMenuInfo">
+          <strong>{{ iAuth.iSesion()?.nombre }}</strong>
+          <span>{{ iAuth.iSesion()?.correo || 'Navegando como invitado' }}</span>
+          <em>{{ iAuth.iEtiquetaRol() }}</em>
+        </div>
+        <button mat-menu-item type="button" (click)="iOtraCuenta()">
+          <span class="iItem"><app-ig-icono nombre="cambiar" [tamano]="18" /> Usar otra cuenta</span>
+        </button>
+        <button mat-menu-item type="button" (click)="iCerrar()">
+          <span class="iItem"><app-ig-icono nombre="salir" [tamano]="18" /> Cerrar sesión</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    @if (iDatos.iCargando()) {
+      <div class="iCarga" role="status" aria-label="Cargando datos"></div>
+    }
+    @if (iDatos.iError()) {
+      <div class="iAviso" role="alert">
+        <app-ig-icono nombre="alerta" [tamano]="20" />
+        <span>{{ iDatos.iError() }}</span>
+        <button type="button" (click)="iDatos.iReintentar()">Reintentar</button>
+      </div>
+    }
+
+    <router-outlet />
+
+    <footer class="iPie">
+      <span>© 2026 INDILINGUA. Todos los derechos reservados.</span>
+      <span class="iPieEnlaces">
+        <span>Términos y condiciones</span>
+        <span>Privacidad</span>
+      </span>
+    </footer>
+  </div>
+</div>
