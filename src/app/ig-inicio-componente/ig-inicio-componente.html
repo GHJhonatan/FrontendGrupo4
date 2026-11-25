@@ -1,0 +1,170 @@
+<!-- Bienvenida -->
+<section class="iHero">
+  <div class="iHeroTexto">
+    <h1>¡Bienvenido a INDILINGUA!</h1>
+    <p>Aprende Quechua y Aymara de forma práctica con lecciones en video y evaluaciones interactivas.</p>
+    <button mat-flat-button type="button" class="iComenzar" (click)="iIr()">
+      <span class="iPlay" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="14" height="14"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+      </span>
+      Comenzar a aprender
+    </button>
+  </div>
+</section>
+
+<!-- Idiomas -->
+<section class="iSeccion" aria-labelledby="tituloIdiomas">
+  <h2 id="tituloIdiomas">Elige qué idioma aprender</h2>
+
+  <div class="iRejilla">
+    @for (t of iTarjetas(); track t.nombre) {
+      <article [class]="'iTarjeta iTema-' + t.tema">
+        <svg class="iIcono" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="50" class="iFondo"/>
+          <g transform="rotate(45 50 50)">
+            <rect x="26" y="26" width="48" height="48" class="iA"/>
+            <rect x="34" y="34" width="32" height="32" class="iB"/>
+            <rect x="42" y="42" width="16" height="16" class="iC"/>
+          </g>
+          <polygon points="50,12 56,20 50,28 44,20" class="iA"/>
+          <polygon points="50,72 56,80 50,88 44,80" class="iA"/>
+          <polygon points="12,50 20,44 28,50 20,56" class="iA"/>
+          <polygon points="72,50 80,44 88,50 80,56" class="iA"/>
+        </svg>
+
+        <div class="iTextoIdioma">
+          <h3>{{ t.nombre }}</h3>
+          <p>{{ t.descripcion }}</p>
+          <ul class="iNiveles">
+            @for (n of t.niveles; track n.nombre) {
+              <li><button type="button" (click)="iIr(t.id, n.id)">{{ n.nombre }}</button></li>
+            }
+          </ul>
+          <button type="button" class="iVer" (click)="iIr(t.id, t.niveles[0]?.id)">
+            Ver lecciones <app-ig-icono nombre="flecha" [tamano]="16" />
+          </button>
+        </div>
+      </article>
+    } @empty {
+      <div class="iVacio">
+        <app-ig-icono nombre="carpeta" [tamano]="32" />
+        <strong>{{ iDatos.iCargando() ? 'Cargando idiomas…' : 'Aún no hay idiomas registrados' }}</strong>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- Tu avance -->
+@if (iAuth.iEsInvitado()) {
+  <section class="iSeccion" aria-labelledby="tituloInvitado">
+    <div class="iInvitado">
+      <div>
+        <h2 id="tituloInvitado">Estás navegando como invitado</h2>
+        <p>Inicia sesión para ver tus lecciones, resolver evaluaciones y guardar tu progreso.</p>
+      </div>
+      <button type="button" class="iBtnPrimario" (click)="iIniciarSesion()">Iniciar sesión</button>
+    </div>
+  </section>
+} @else {
+  <section class="iSeccion" aria-labelledby="tituloAvance">
+    <h2 id="tituloAvance">Tu avance</h2>
+
+    <div class="iAvance">
+      @if (iContinuar(); as c) {
+        <article class="iContinuar">
+          <div class="iEtiquetas">
+            <span class="iEtiqueta iEtiquetaVerde">{{ c.leccion.idioma?.nombre }}</span>
+            <span class="iEtiqueta">{{ c.leccion.nivel?.nombre }}</span>
+          </div>
+          <p class="iSobretitulo">{{ c.empezada ? 'Continúa tu aprendizaje' : 'Empieza tu aprendizaje' }}</p>
+          <h3>{{ c.leccion.titulo }}</h3>
+
+          <div class="iProgresoFila">
+            <span>Progreso del nivel</span>
+            <strong>{{ c.pct }}%</strong>
+          </div>
+          <div class="iProgreso" role="progressbar" aria-label="Progreso del nivel" aria-valuemin="0" aria-valuemax="100" [attr.aria-valuenow]="c.pct">
+            <span [style.width.%]="c.pct"></span>
+          </div>
+
+          <button mat-flat-button type="button" class="iComenzar" (click)="iContinuarLeccion(c.leccion)">
+            {{ c.empezada ? 'Continuar lección' : 'Empezar lección' }}
+            <app-ig-icono nombre="flecha" [tamano]="16" />
+          </button>
+        </article>
+      } @else {
+        <article class="iContinuar iSinContinuar">
+          <app-ig-icono nombre="estrella" [tamano]="28" />
+          <p>{{ iSinContinuar() }}</p>
+        </article>
+      }
+
+      <div class="iDatos">
+        @for (d of iTiles(); track d.etiqueta) {
+          <article class="iDato">
+            <span [class]="'iDatoIcono iTono-' + d.tono"><app-ig-icono [nombre]="d.icono" [tamano]="22" /></span>
+            <div>
+              <p class="iDatoEtiqueta">{{ d.etiqueta }}</p>
+              <p class="iDatoValor">{{ d.valor }} @if (d.detalle) { <small>{{ d.detalle }}</small> }</p>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+}
+
+<!-- Pasos -->
+<section class="iSeccion iCentro" aria-labelledby="tituloPasos">
+  <h2 id="tituloPasos">Así avanza tu aprendizaje</h2>
+
+  <ol class="iPasos">
+    @for (p of iPasos; track p.titulo; let n = $index) {
+      <li>
+        <span class="iNumero" aria-hidden="true">{{ n + 1 }}</span>
+        <h3>{{ p.titulo }}</h3>
+        <p>{{ p.texto }}</p>
+      </li>
+    }
+  </ol>
+</section>
+
+<!-- Recursos -->
+<section class="iSeccion" aria-labelledby="tituloRecursos">
+  <h2 id="tituloRecursos">Recursos para acompañar tu aprendizaje</h2>
+
+  <div class="iRecursos">
+    @for (r of iRecursos; track r.titulo) {
+      <article class="iRecurso">
+        <span class="iRecursoIcono"><app-ig-icono [nombre]="r.icono ?? 'libro'" [tamano]="24" /></span>
+        <div>
+          <h3>{{ r.titulo }}</h3>
+          <p>{{ r.texto }}</p>
+        </div>
+      </article>
+    }
+  </div>
+</section>
+
+<!-- Cultura -->
+<section class="iSeccion" aria-labelledby="tituloCultura">
+  <div class="iCultura">
+    <div class="iCulturaTexto">
+      <h2 id="tituloCultura">Aprender una lengua también es conocer su cultura</h2>
+      <p>INDILINGUA nace como una startup comprometida con la preservación y difusión de las lenguas originarias del Perú y Latinoamérica. Creemos que la tecnología es el puente para que nuevas generaciones se reconecten con sus raíces de una manera moderna, dinámica y accesible desde cualquier lugar.</p>
+      <p class="iHashtag">#PreservaTuIdentidad</p>
+    </div>
+
+    <svg class="iArte" viewBox="0 0 416 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <pattern id="iTejido" width="52" height="52" patternUnits="userSpaceOnUse">
+          <rect width="52" height="52" fill="#fdf3ec"/>
+          <polygon points="26,4 48,26 26,48 4,26" fill="#d9822b"/>
+          <polygon points="26,13 39,26 26,39 13,26" fill="#ffffff"/>
+          <polygon points="26,20 32,26 26,32 20,26" fill="#2e7032"/>
+        </pattern>
+      </defs>
+      <rect width="416" height="260" fill="url(#iTejido)"/>
+    </svg>
+  </div>
+</section>
