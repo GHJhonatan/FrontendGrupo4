@@ -1,0 +1,95 @@
+:host { display: block; }
+
+/* Hero */
+.iHero { position: relative; margin: 24px 32px 0; min-height: 280px; display: flex; align-items: center; background: #fbf4ec url('/hero-montanas.png') right center / auto 100% no-repeat; border: 1px solid #f1e6da; border-radius: 16px; overflow: hidden; }
+.iHeroTexto { padding: 40px 48px; max-width: 560px; }
+.iHeroTexto h1 { font-size: clamp(28px, 4vw, 40px); font-weight: 700; line-height: 1.15; }
+.iHeroTexto p { margin: 16px 0 28px; max-width: 420px; font-size: 18px; line-height: 1.5; }
+
+.iComenzar { --mat-button-filled-container-color: var(--verde-oscuro); --mat-button-filled-label-text-color: #fff; --mat-button-filled-container-shape: 8px; height: 48px; padding: 0 22px; font-family: var(--fuente-texto); font-size: 16px; }
+.iComenzar svg { margin-left: 8px; }
+.iPlay { display: inline-grid; place-items: center; width: 24px; height: 24px; margin-right: 10px; border-radius: 50%; background: #fff; color: var(--verde-oscuro); }
+
+/* Secciones */
+.iSeccion { padding: 40px 32px 0; }
+.iSeccion > h2, .iCulturaTexto h2 { font-size: 24px; font-weight: 600; margin-bottom: 20px; }
+.iCentro { text-align: center; }
+.iRejilla { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; text-align: left; }
+
+/* Tarjetas de idioma */
+.iTarjeta { display: flex; align-items: center; gap: 28px; padding: 28px; border: 1px solid var(--borde); border-radius: 16px; background: var(--fondo); }
+.iTema-quechua { --fondo: #fdf3ec; --borde: #f3d5bf; --titulo: var(--naranja-oscuro); --chip: #fbe3d1; --ic-fondo: #fbe6d6; --ic-a: #d9822b; --ic-c: #8b3a0e; }
+.iTema-aymara  { --fondo: #f2f5f0; --borde: #d5ddd0; --titulo: var(--verde-oscuro); --chip: #e1e8dd; --ic-fondo: #e3eadf; --ic-a: var(--verde-principal); --ic-c: #c79a5b; }
+.iIcono { flex: none; width: 104px; height: 104px; }
+.iFondo { fill: var(--ic-fondo); }
+.iA { fill: var(--ic-a); }
+.iB { fill: #fff; }
+.iC { fill: var(--ic-c); }
+.iTextoIdioma h3 { font-size: 26px; font-weight: 600; color: var(--titulo); }
+.iTextoIdioma p { margin: 8px 0 16px; font-size: 15px; line-height: 1.45; }
+.iNiveles { display: flex; gap: 10px; margin: 0 0 16px; padding: 0; list-style: none; }
+.iNiveles button { padding: 6px 16px; border: 1px solid var(--borde); border-radius: 8px; background: #fff; color: inherit; font: 14px var(--fuente-texto); cursor: pointer; }
+.iNiveles li:last-child button { background: var(--chip); }
+.iNiveles button:hover { border-color: var(--titulo); }
+.iVer { display: inline-flex; align-items: center; gap: 8px; padding: 0; background: none; border: 0; color: var(--titulo); font-size: 16px; font-weight: 700; cursor: pointer; }
+
+/* Tu avance */
+.iAvance { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; }
+.iContinuar { padding: 28px; border: 1px solid #e5e7eb; border-radius: 16px; background: #fff; box-shadow: 0 1px 3px rgba(31, 41, 55, 0.06); }
+.iEtiquetas { display: flex; gap: 8px; }
+.iEtiqueta { padding: 3px 12px; border-radius: 999px; background: var(--gris-claro); font-size: 13px; font-weight: 700; }
+.iEtiquetaVerde { background: var(--verde-claro); color: var(--verde-oscuro); }
+.iSobretitulo { margin: 16px 0 4px; font-size: 14px; color: var(--gris-medio); }
+.iContinuar h3 { font-size: 26px; font-weight: 600; margin-bottom: 20px; }
+.iProgresoFila { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; color: var(--gris-medio); }
+.iProgresoFila strong { color: var(--verde-principal); }
+.iProgreso { height: 8px; margin-bottom: 24px; border-radius: 999px; background: var(--gris-borde); overflow: hidden; }
+.iProgreso span { display: block; height: 100%; border-radius: 999px; background: var(--verde-principal); }
+
+.iDatos { display: grid; gap: 16px; }
+.iDato { display: flex; align-items: center; gap: 16px; padding: 18px 20px; border: 1px solid #e5e7eb; border-radius: 16px; background: #fff; }
+.iDatoIcono { flex: none; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 12px; }
+.iTono-verde { background: var(--verde-claro); color: var(--verde-principal); }
+.iTono-naranja { background: #fff1e6; color: var(--naranja-marca); }
+.iDatoEtiqueta { margin: 0; font-size: 14px; color: var(--gris-medio); }
+.iDatoValor { margin: 2px 0 0; font-family: var(--fuente-titulos); font-size: 26px; font-weight: 700; }
+.iDatoValor small { font-family: var(--fuente-texto); font-size: 15px; font-weight: 400; color: var(--gris-medio); }
+
+/* Pasos */
+.iPasos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin: 32px 0 0; padding: 0; list-style: none; }
+.iNumero { display: inline-grid; place-items: center; width: 48px; height: 48px; margin-bottom: 16px; border-radius: 50%; background: var(--naranja-marca); color: #fff; font-family: var(--fuente-titulos); font-size: 20px; font-weight: 700; }
+.iPasos h3 { font-size: 18px; font-weight: 600; }
+.iPasos p { margin: 8px auto 0; max-width: 240px; font-size: 15px; line-height: 1.45; color: var(--gris-medio); }
+
+/* Recursos */
+.iRecursos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.iRecurso { display: flex; align-items: flex-start; gap: 16px; padding: 22px; border: 1px solid #e5e7eb; border-radius: 16px; }
+.iRecursoIcono { flex: none; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 12px; background: var(--verde-claro); color: var(--naranja-marca); }
+.iRecurso h3 { font-size: 18px; font-weight: 600; }
+.iRecurso p { margin: 6px 0 0; font-size: 15px; line-height: 1.45; color: var(--gris-medio); }
+
+/* Cultura */
+.iSeccion:last-of-type { padding-bottom: 48px; }
+.iCultura { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; padding: 40px; border-radius: 16px; background: var(--gris-claro); }
+.iCulturaTexto p { margin: 0 0 16px; font-size: 16px; line-height: 1.6; color: var(--gris-oscuro); }
+.iHashtag { font-family: var(--fuente-titulos); font-weight: 700; color: var(--naranja-marca); }
+.iArte { width: 100%; height: 260px; border-radius: 16px; }
+
+@media (max-width: 1000px) {
+  .iRejilla, .iAvance, .iRecursos, .iCultura { grid-template-columns: 1fr; }
+  .iPasos { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .iHero { margin: 16px 16px 0; min-height: 0; background-image: none; }
+  .iHeroTexto { padding: 28px 24px; }
+  .iSeccion { padding: 32px 16px 0; }
+  .iTarjeta { flex-direction: column; align-items: flex-start; }
+  .iPasos { grid-template-columns: 1fr; }
+  .iCultura { padding: 24px; }
+}
+
+.iVacio { grid-column: 1 / -1; }
+.iSinContinuar { display: grid; place-content: center; justify-items: center; gap: 8px; color: var(--gris-medio); text-align: center; }
+.iInvitado { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 24px 28px; border: 1px solid #f3d5bf; border-radius: 16px; background: #fdf3ec; }
+.iInvitado h2 { margin-bottom: 4px !important; font-size: 20px; }
+.iInvitado p { margin: 0; color: var(--gris-medio); }

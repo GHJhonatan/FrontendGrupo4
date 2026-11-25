@@ -1,0 +1,27 @@
+:host { display: block; border-right: 1px solid #eceef1; background: #fff; }
+.iLateral { --sel-fondo: #fff1e6; --sel-borde: #f3b58a; --sel-texto: var(--naranja-oscuro); display: flex; flex-direction: column; gap: 16px; padding: 24px 16px; }
+.iLateral.iVerde { --sel-fondo: var(--verde-claro); --sel-borde: #9ccc9f; --sel-texto: var(--verde-oscuro); }
+
+.iCaja { padding: 14px; border: 1px solid #e5e7eb; border-radius: 12px; }
+.iCaja h2 { margin-bottom: 10px; font-size: 15px; font-weight: 600; }
+.iOpcion { display: flex; align-items: center; gap: 10px; width: 100%; margin-bottom: 8px; padding: 10px 12px; border: 1px solid var(--gris-borde); border-radius: 8px; background: #fff; color: var(--gris-oscuro); font: 700 14px var(--fuente-texto); text-align: left; cursor: pointer; }
+.iOpcion:last-child { margin-bottom: 0; }
+.iOpcion:hover { background: var(--gris-claro); }
+.iOpcion.iSel { border-color: var(--sel-borde); background: var(--sel-fondo); color: var(--sel-texto); }
+
+.iCentro { text-align: center; }
+.iAnillo { position: relative; display: inline-grid; place-items: center; margin: 4px 0 6px; }
+.iAnillo strong { position: absolute; font-family: var(--fuente-titulos); font-size: 20px; }
+.iLeyenda { margin: 0; font-weight: 700; font-size: 14px; }
+.iNota { margin: 4px 0 0; font-size: 13px; color: var(--gris-medio); }
+
+.iAnimo { margin-top: auto; padding: 16px 16px 96px; border-radius: 12px; background: #fbf4ec url('/hero-montanas.png') center bottom / cover no-repeat; }
+.iAnimo h3 { font-size: 16px; font-weight: 700; color: var(--verde-oscuro); }
+.iAnimo p { margin: 6px 0 0; font-size: 13px; line-height: 1.4; }
+
+@media (max-width: 900px) {
+  :host { border-right: 0; border-bottom: 1px solid #eceef1; }
+  .iLateral { flex-direction: row; flex-wrap: wrap; padding: 16px; }
+  .iCaja { flex: 1 1 200px; }
+  .iAnimo { display: none; }
+}

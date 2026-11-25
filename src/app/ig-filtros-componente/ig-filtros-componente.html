@@ -1,0 +1,48 @@
+<aside class="iLateral" [class.iVerde]="modo() === 'progreso'">
+  <section class="iCaja">
+    <h2>Elige idioma</h2>
+    @for (iIdioma of iDatos.iIdiomas(); track iIdioma.id) {
+      <button type="button" class="iOpcion" [class.iSel]="iDatos.iIdiomaSel() === iIdioma.id" (click)="iDatos.iIdiomaSel.set(iIdioma.id)">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+          <polygon points="12,2 22,12 12,22 2,12" fill="currentColor" opacity="0.35"/>
+          <polygon points="12,6 18,12 12,18 6,12" fill="currentColor"/>
+        </svg>
+        {{ iIdioma.nombre }}
+      </button>
+    } @empty {
+      <p class="iNota">Sin idiomas registrados</p>
+    }
+  </section>
+
+  <section class="iCaja">
+    <h2>{{ modo() === 'evaluaciones' ? 'Elige nivel' : 'Nivel' }}</h2>
+    @for (iNivel of iDatos.iNiveles(); track iNivel.id) {
+      <button type="button" class="iOpcion" [class.iSel]="iDatos.iNivelSel() === iNivel.id" (click)="iDatos.iNivelSel.set(iNivel.id)">
+        {{ iNivel.nombre }}
+      </button>
+    } @empty {
+      <p class="iNota">Sin niveles registrados</p>
+    }
+  </section>
+
+  @if (modo() !== 'progreso') {
+    <section class="iCaja iCentro">
+      <h2>{{ iTitulo() }}</h2>
+      <div class="iAnillo">
+        <svg viewBox="0 0 80 80" width="88" height="88" aria-hidden="true">
+          <circle cx="40" cy="40" r="34" fill="none" stroke="#e5e7eb" stroke-width="8"/>
+          <circle cx="40" cy="40" r="34" fill="none" stroke="var(--verde-principal)" stroke-width="8" stroke-linecap="round"
+                  [attr.stroke-dasharray]="iDash()" transform="rotate(-90 40 40)"/>
+        </svg>
+        <strong>{{ iPct() }}%</strong>
+      </div>
+      <p class="iLeyenda">{{ iLeyenda() }}</p>
+      <p class="iNota">{{ iDetalle() }}</p>
+    </section>
+  }
+
+  <section class="iAnimo">
+    <h3>{{ iAnimo()[0] }}</h3>
+    <p>{{ iAnimo()[1] }}</p>
+  </section>
+</aside>
